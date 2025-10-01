@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="sr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《 NTS Robotika 》</title>
+	<link rel="icon" type="image/x-icon" href="img/aleksalogo.png">
+    <link rel="stylesheet" href="styles.css">
+	
+	<meta content="《 Marin Robotika D.O.O 》" property="og:title" />
+	<meta content="Dobrodošli na naš portal!" property="og:description" />
+	<meta name="author" content="Алекса Маринковић">
+	<meta content="https://marinkovicaleksa.github.io/site/index.html" property="og:url" />
+	<meta content="https://marinkovicaleksa.github.io/site/img/aleksalogo.png" property="og:image" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="#021642" data-react-helmet="true" name="theme-color" />
+  <style>
+    /* Reset i osnove */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-dark: #021642;
+      --primary-medium: #1b263b;
+      --primary-light: #415a77;
+      --accent: #4cc9f0;
+      --accent-hover: #3a9fbf;
+      --text-light: #f8f9fa;
+      --text-dark: #333;
+      --card-bg: #ffffff;
+      --section-bg: #f5f7fa;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--section-bg);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    header {
+      background: var(--primary-dark);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 0;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 50px;
+      width: 50px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .hamburger.active {
+      transform: rotate(90deg);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      color: white;
+      text-align: center;
+      padding: 6rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wIDBoMTAwdjEwMEgweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvc3ZnPg==');
+      opacity: 0.1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: none;
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+    }
+
+    .cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(76, 201, 240, 0.4);
+    }
+
+    .features-section {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .section-title p {
+      color: var(--primary-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      flex: 1 1 300px;
+      transition: all 0.3s;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      color: var(--primary-light);
+    }
+
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    /* Mobilni meni */
+    @media (max-width: 768px) {
+      .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        background: var(--primary-dark);
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .card {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container h1 {
+        font-size: 1.2rem;
+      }
+
+      .hero {
+        padding: 4rem 1rem;
+      }
+
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .features-section {
+        padding: 3rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="logo-container">
+        <img class="logo" height="50px" width="50px" src="Robotika2.png" alt="Marin Robotika Logo">
+        <h1>NTS Robotika</h1>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html">Početna</a>
+        <a href="about.html">O kompaniji</a>
+        <a href="clanovi.html">Članovi</a>
+        <a href="contact.html">Kontakt</a>
+      </nav>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content fade-in">
+        <h2>Marin Robotika D.O.O</h2>
+        <p>Učenička kompanija Tehničke škole "Nikola Tesla" -&nbsp; &nbsp;najbolji roboti od srbije do francuske!</p>
+        <button class="cta-button" onclick="location.href='about.html'">Otkrijte više</button>
+      </div>
+    </section>
+
+    <section class="features-section">
+      <div class="container">
+        <div class="section-title fade-in">
+          <h2>Naše oblasti delovanja</h2>
+        </div>
+        <div class="features">
+          <div class="card fade-in delay-1">
+            <h3>🤖 Robotika</h3>
+            <p>Projektovanje i izrada edukativnih robota za razna priznata takmičenja</p>
+          </div>
+          <div class="card fade-in delay-1">
+            <h3>⚡ Elektronika</h3>
+            <p>Raspolažemo raznim mikrokontrolerima, motorima i senzorima</p>
+          </div>
+          <div class="card fade-in delay-2">
+            <h3>🎓 Obrazovanje</h3>
+            <p>Interaktivne radionice i praktična obuka za nove generacije</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Marin Robotika D.O.O. – Aleksa Marinkovic</p>
+  </footer>
+
+  <script>
+    // Modern JavaScript for mobile menu and scroll effects
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+    const header = document.getElementById('header');
+
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+
+    // Fade in animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《 NTS Robotika 》</title>
+	<link rel="icon" type="image/x-icon" href="img/aleksalogo.png">
+    <link rel="stylesheet" href="style.css">
+	
+	<meta content="《 Marin Robotika D.O.O 》" property="og:title" />
+	<meta content="Dobrodošli na naš portal!" property="og:description" />
+	<meta name="author" content="Алекса Маринковић">
+	<meta content="https://marinkovicaleksa.github.io/site/index.html" property="og:url" />
+	<meta content="https://marinkovicaleksa.github.io/site/img/aleksalogo.png" property="og:image" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="#021642" data-react-helmet="true" name="theme-color" />
+  <style>
+    /* Reset i osnove */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-dark: #021642;
+      --primary-medium: #1b263b;
+      --primary-light: #415a77;
+      --accent: #4cc9f0;
+      --accent-hover: #3a9fbf;
+      --text-light: #f8f9fa;
+      --text-dark: #333;
+      --card-bg: #ffffff;
+      --section-bg: #f5f7fa;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--section-bg);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-dark);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 0;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 50px;
+      width: 50px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .hamburger.active {
+      transform: rotate(90deg);
+    }
+
+    /* Main Content */
+    main {
+      padding: 3rem 0;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .page-title p {
+      color: var(--primary-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Hierarchy Structure */
+    .hierarchy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+
+    .level {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      width: 100%;
+    }
+
+    .level-1 {
+      margin-bottom: 2rem;
+    }
+
+    .level-2 {
+      margin-top: 2rem;
+    }
+
+    .connector {
+      height: 40px;
+      width: 2px;
+      background: var(--accent);
+      margin: 0 auto 1rem;
+    }
+
+    /* Employee Cards */
+    .employee-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+      width: 280px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .employee-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .employee-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .employee-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .employee-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.5rem;
+      border: 3px solid var(--accent);
+    }
+
+    .employee-card h3 {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .employee-role {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .employee-department {
+      color: var(--primary-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .employee-bio {
+      color: var(--primary-medium);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Employee List */
+    .employee-list-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .employee-list-section h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .employee-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .employee-list-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .employee-list-item:hover {
+      background: rgba(76, 201, 240, 0.1);
+    }
+
+    .employee-list-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .employee-list-info h4 {
+      color: var(--primary-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .employee-list-info p {
+      color: var(--primary-light);
+      font-size: 0.9rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--primary-light);
+      transition: color 0.3s;
+    }
+
+    .close-modal:hover {
+      color: var(--primary-dark);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+    }
+
+    .modal-info h3 {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .modal-info .employee-role {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .modal-info .employee-department {
+      color: var(--primary-light);
+      margin-bottom: 0;
+    }
+
+    .modal-body {
+      margin-top: 1.5rem;
+    }
+
+    .modal-body h4 {
+      color: var(--primary-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .modal-body p {
+      color: var(--primary-medium);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .responsibilities {
+      list-style-type: none;
+    }
+
+    .responsibilities li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+      color: var(--primary-medium);
+    }
+
+    .responsibilities li:last-child {
+      border-bottom: none;
+    }
+
+    .responsibilities li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+    }
+
+    /* Mobilni meni */
+    @media (max-width: 768px) {
+      .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        background: var(--primary-dark);
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .page-title h2 {
+        font-size: 2rem;
+      }
+
+      .employee-card {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .modal-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .employee-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container h1 {
+        font-size: 1.2rem;
+      }
+
+      .page-title h2 {
+        font-size: 1.8rem;
+      }
+
+      .employee-list-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="logo-container">
+        <img class="logo" height="50px" width="50px" src="Robotika2.png" alt="Marin Robotika Logo">
+        <h1>NTS Robotika</h1>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html">Početna</a>
+        <a href="about.html">O kompaniji</a>
+        <a href="clanovi.html">Članovi</a>
+        <a href="contact.html">Kontakt</a>
+      </nav>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-title">
+      <h2>Naša kompanija</h2>
+      <p>Upoznajte naš tim stručnjaka koji stoji iza uspeha Marin Robotike</p>
+    </div>
+
+    <div class="hierarchy">
+		
+     <!-- Level 1 - CEO -->
+		 <!--
+      <div class="level level-1">
+        <div class="employee-card" data-id="1">
+          <img src="am.png" alt="Aleksa Marinković" class="employee-img">
+          <h3>Aleksa Marinković</h3>
+          <p class="employee-role">Izvršni direktor</p>
+          <p class="employee-department">Rukovodstvo</p>
+          <p class="employee-bio">Učenik III razreda - Elektrotehničar računara</p>
+        </div>
+      </div>
+		-->
+
+      <!-- Level 2 - Central Committee -->
+      <div class="level level-2">
+        <div class="employee-card" data-id="2">
+          <img src="am.png" alt="Aleksa Marinković" class="employee-img">
+          <h3>Aleksa Marinković</h3>
+          <p class="employee-role">Izvršni direktor</p>
+          <p class="employee-department">Centralni komitet</p>
+          <p class="employee-bio">Učenik III razreda - Elektrotehničar računara</p>
+        </div>
+        
+        <div class="employee-card" data-id="3">
+          <img src="np.png" alt="Nemanja Pavić" class="employee-img">
+          <h3>Nemanja Pavić</h3>
+          <p class="employee-role">v. d. Zamenik direktora</p>
+
+          <p class="employee-department">Centralni komitet</p>
+          <p class="employee-bio">Učenik III razreda - Elektrotehničar računara</p>
+        </div>
+      </div>
+    </div>
+
+	        <!-- Connector -->
+      <div class="connector"></div>
+	  
+    <!-- Employee List Section -->
+    <div class="employee-list-section">
+      <h3>Članovi kompanije</h3>
+      <div class="employee-list">
+		  
+        <div class="employee-list-item" data-id="1">
+          <img src="am.png" alt="Aleksa Marinković" class="employee-list-img">
+          <div class="employee-list-info">
+            <h4>Aleksa Marinković</h4>
+            <p>Izvršni direktor</p>
+          </div>
+        </div>
+        
+        <div class="employee-list-item" data-id="3">
+          <img src="np.png" alt="Nemanja Pavić" class="employee-list-img">
+          <div class="employee-list-info">
+            <h4>Nemanja Pavić</h4>
+            <p>v. d. Zamenik direktora</p>
+          </div>
+        </div>
+        
+		  <!--
+        <div class="employee-list-item" data-id="4">
+          <img src="viber_image_2025-10-01_01-27-04-126.jpg" alt="Vladimir Fodora" class="employee-list-img">
+          <div class="employee-list-info">
+            <h4>Vladimir Fodora</h4>
+            <p>Asistent-profesor</p>
+          </div>
+        </div>
+		  -->
+        
+
+		  
+		          <div class="employee-list-item" data-id="6">
+          <img src="mp.png" alt="Mihajlo Petrović" class="employee-list-img">
+          <div class="employee-list-info">
+            <h4>Mihajlo Petrović</h4>
+            <p>Analitičar za analognu elektroniku</p>
+          </div>
+        </div>
+		  
+		          <div class="employee-list-item" data-id="5">
+          <img src="milica.png" alt="Milica Pap" class="employee-list-img">
+          <div class="employee-list-info">
+            <h4>Milica Pap</h4>
+            <p>Analitičar za LEGO robotiku</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal for Employee Details -->
+  <div class="modal" id="employeeModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <div class="modal-header">
+        <img src="" alt="" class="modal-img" id="modalImg">
+        <div class="modal-info">
+          <h3 id="modalName"></h3>
+          <p class="employee-role" id="modalRole"></p>
+          <p class="employee-department" id="modalDepartment"></p>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h4>Biografija</h4>
+        <p id="modalBio"></p>
+        
+        <h4>Odgovornosti</h4>
+        <ul class="responsibilities" id="modalResponsibilities">
+          <!-- Responsibilities will be added dynamically -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Marin Robotika D.O.O. – Aleksa Marinković</p>
+  </footer>
+
+  <script>
+    // Employee data
+    const employees = {
+      1: {
+        name: "Aleksa Marinković",
+        role: "Izvršni direktor",
+        department: "Rukovodstvo",
+        bio: "Učenik III razreda smera Elektrotehničar računara. Aleksa je osnivač i izvršni direktor Marin Robotike. Ima strast prema mehatronici i programiranju, a posebno se istakao u projektovanju raznih analognih i digitalnih kola.",
+        responsibilities: [
+          "Vrednovanje kvaliteta",
+          "Tim za programiranje",
+          "Odsek za analognu i digitalnu elektroniku",
+			"Tim za projektovanje mehatronike",
+          "Ljudski resursi"
+        ],
+        img: "am.png"
+      },
+      2: {
+        name: "Aleksa Marinković",
+        role: "Izvršni direktor",
+        department: "Rukovodstvo",
+        bio: "Učenik III razreda smera Elektrotehničar računara. Aleksa je osnivač i izvršni direktor Marin Robotike. Ima strast prema mehatronici i programiranju, a posebno se istakao u projektovanju raznih analognih i digitalnih kola.",
+        responsibilities: [
+          "Vrednovanje kvaliteta",
+          "Tim za programiranje",
+          "Odsek za analognu i digitalnu elektroniku",
+			"Tim za projektovanje mehatronike",
+          "Ljudski resursi"
+        ],
+        img: "am.png"
+      },
+      3: {
+        name: "Nemanja Pavić",
+        role: "v. d. Zamenik direktora",
+        department: "Rukovodstvo",
+        bio: "Učenik III razreda smera Elektrotehničar računara. Nemanja je kĺjučna karika u razvoju analognih i digitalnih kola. Njegova preciznost i tehničko znanje čine ga neizostavnim u svakom projektu.",
+        responsibilities: [
+          "Vrednovanje kvaliteta",
+          "Tim za programiranje",
+          "Odsek za analognu i digitalnu elektroniku",
+          "Tim za propagandu"
+        ],
+        img: "np.png"
+      },
+		
+		      4: {
+        name: "Vladimir Fodora",
+        role: "šegrt",
+        department: "Konstruktor",
+        bio: "Asistent-profesor elektrotehničke grupe predmeta.",
+        responsibilities: [
+          "Vrednovanje kvaliteta",
+          "Tim za propagandu"
+        ],
+        img: "4.jpg"
+      },
+
+      5: {
+        name: "Milica Pap",
+        role: "Konstruktor",
+        department: "LEGO Robotika",
+        bio: "Učenica III razreda smera Elektrotehničar računara. Milica je kreativni konstruktor specijalizovan za LEGO robote. Njeni dizajni kombinuju funkcionalnost i estetiku, čineći naše robote atraktivnim i efikasnim.",
+        responsibilities: [
+          "Odsek za LEGO mehatroniku",
+          "Tim za testiranje mehatronike"        ],
+        img: "milica.png"
+      },
+		      6: {
+        name: "Mihajlo Petrović",
+        role: "Analitičar",
+        department: "Omov zakon",
+        bio: "Učenik III razreda smera Elektrotehničar računara. Mihajlo se bavi preciznim kalkulacijama u poljima matematike i elektrotehnike.",
+        responsibilities: [
+          "Analiza kola",
+          "Mehatronički dizajn"
+        ],
+        img: "mp.png"
+      }
+    };
+
+    // DOM Elements
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+    const header = document.getElementById('header');
+    const modal = document.getElementById('employeeModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalName = document.getElementById('modalName');
+    const modalRole = document.getElementById('modalRole');
+    const modalDepartment = document.getElementById('modalDepartment');
+    const modalBio = document.getElementById('modalBio');
+    const modalResponsibilities = document.getElementById('modalResponsibilities');
+
+    // Mobile menu toggle
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+
+    // Open modal when clicking on employee card or list item
+    document.querySelectorAll('.employee-card, .employee-list-item').forEach(element => {
+      element.addEventListener('click', () => {
+        const employeeId = element.getAttribute('data-id');
+        openEmployeeModal(employeeId);
+      });
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Function to open employee modal
+    function openEmployeeModal(id) {
+      const employee = employees[id];
+      
+      if (employee) {
+        modalImg.src = employee.img;
+        modalImg.alt = employee.name;
+        modalName.textContent = employee.name;
+        modalRole.textContent = employee.role;
+        modalDepartment.textContent = employee.department;
+        modalBio.textContent = employee.bio;
+        
+        // Clear previous responsibilities
+        modalResponsibilities.innerHTML = '';
+        
+        // Add responsibilities
+        employee.responsibilities.forEach(responsibility => {
+          const li = document.createElement('li');
+          li.textContent = responsibility;
+          modalResponsibilities.appendChild(li);
+        });
+        
+        modal.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>

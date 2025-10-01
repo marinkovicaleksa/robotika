@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《 NTS Robotika 》</title>
+	<link rel="icon" type="image/x-icon" href="img/aleksalogo.png">
+    <link rel="stylesheet" href="style.css">
+	
+	<meta content="《 Kontakt 》" property="og:title" />
+	<meta content="Imate pitanja za nas? Javite se!" property="og:description" />
+	<meta name="author" content="Алекса Маринковић">
+	<meta content="https://marinkovicaleksa.github.io/site/index.html" property="og:url" />
+	<meta content="https://marinkovicaleksa.github.io/site/img/aleksalogo.png" property="og:image" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="#021642" data-react-helmet="true" name="theme-color" />
+  <style>
+    /* Reset i osnove */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-dark: #021642;
+      --primary-medium: #1b263b;
+      --primary-light: #415a77;
+      --accent: #4cc9f0;
+      --accent-hover: #3a9fbf;
+      --text-light: #f8f9fa;
+      --text-dark: #333;
+      --card-bg: #ffffff;
+      --section-bg: #f5f7fa;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+      --success: #4CAF50;
+      --error: #f44336;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--section-bg);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-dark);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 0;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 50px;
+      width: 50px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .hamburger.active {
+      transform: rotate(90deg);
+    }
+
+    /* Main Content */
+    main {
+      padding: 3rem 0;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .page-title p {
+      color: var(--primary-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Contact Layout */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    /* Contact Info */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .contact-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .contact-card h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-detail:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(76, 201, 240, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-text h4 {
+      color: var(--primary-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-text p {
+      color: var(--primary-light);
+    }
+
+    .contact-text a {
+      color: var(--primary-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-text a:hover {
+      color: var(--accent);
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: rgba(76, 201, 240, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .social-link:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Map */
+    .map-container {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      height: 300px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+    }
+
+    .map-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wIDBoMTAwdjEwMEgweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvc3ZnPg==');
+      opacity: 0.1;
+    }
+
+    .map-placeholder {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    /* Contact Form */
+    .contact-form-container {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--accent);
+    }
+
+    .contact-form-container h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    #contactForm {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    #contactForm label {
+      color: var(--primary-dark);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    #contactForm input,
+    #contactForm textarea,
+    #contactForm select {
+      padding: 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+      background: #fafafa;
+    }
+
+    #contactForm input:focus,
+    #contactForm textarea:focus,
+    #contactForm select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+    }
+
+    #contactForm textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    #contactForm button {
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    #contactForm button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 201, 240, 0.3);
+    }
+
+    #contactForm button:active {
+      transform: translateY(0);
+    }
+
+    /* Form Status */
+    .form-status {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      text-align: center;
+      display: none;
+    }
+
+    .form-status.success {
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      display: block;
+    }
+
+    .form-status.error {
+      background: rgba(244, 67, 54, 0.1);
+      color: var(--error);
+      border: 1px solid rgba(244, 67, 54, 0.3);
+      display: block;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin-top: 4rem;
+    }
+
+    .faq-section h3 {
+      text-align: center;
+      color: var(--primary-dark);
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+    }
+
+    .faq-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: rgba(76, 201, 240, 0.05);
+    }
+
+    .faq-question h4 {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .faq-toggle {
+      color: var(--accent);
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: var(--primary-light);
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 200px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+
+    /* Mobilni meni */
+    @media (max-width: 768px) {
+      .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        background: var(--primary-dark);
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .page-title h2 {
+        font-size: 2rem;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form-container {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container h1 {
+        font-size: 1.2rem;
+      }
+
+      .page-title h2 {
+        font-size: 1.8rem;
+      }
+
+      .contact-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="logo-container">
+        <img class="logo" height="50px" width="50px" src="Robotika2.png" alt="Marin Robotika Logo">
+        <h1>NTS Robotika</h1>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html">Početna</a>
+        <a href="about.html">O kompaniji</a>
+        <a href="clanovi.html">Članovi</a>
+        <a href="contact.html">Kontakt</a>
+      </nav>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-title fade-in">
+      <h2>Kontaktirajte nas</h2>
+      <p>Imate pitanja ili želite da saradujete sa nama? Javite nam se!</p>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="contact-card fade-in">
+          <h3>📞 Kontakt informacije</h3>
+          <div class="contact-detail">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">
+              <h4>Email</h4>
+              <p><a href="mailto:marinkovicc.aleksa@gmail.com">marinkovicc.aleksa@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4>Adresa</h4>
+              <p>Školska 1, Šid</p>
+              <p>Tehnička škola "Nikola Tesla"</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-icon">🕒</div>
+            <div class="contact-text">
+              <h4>Radno vreme</h4>
+              <p>Utorak: 9:50 - 11:25</p>
+              <p>Četvrtak: 13:05 - 13:45</p>
+			<p>Petak: 13:05 - 13:45</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card fade-in delay-1">
+          <h3>🌐 Pratite nas</h3>
+          <p>Budite u toku sa našim najnovijim projektima i aktivnostima</p>
+          <div class="social-links">
+            <a href="#" class="social-link">📘</a> <p>Uskoro...</p>
+			
+			</div>
+        </div>
+
+
+    </div>
+		
+		
+
+    <div class="faq-section fade-in delay-2">
+      <h3>Često postavljana pitanja</h3>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>Kako mogu da se prijavim za sekciju?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Potrebno je zahtev ili Vaše interesovanje za prijavu uputiti preko email adrese.</p>
+          </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>Da li je moguće posetiti vaše prostorije?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Zavisi da li nam to profesor dopusti. Uvek možete posetiti odmorom tokom našeg radnog vremena.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Marin Robotika D.O.O. – Aleksa Marinković</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+    const header = document.getElementById('header');
+
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+
+  
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+
+    // Fade in animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

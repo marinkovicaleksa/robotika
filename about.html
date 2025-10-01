@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《 NTS Robotika 》</title>
+	<link rel="icon" type="image/x-icon" href="img/aleksalogo.png">
+    <link rel="stylesheet" href="style.css">
+	
+	<meta content="《 Marin Robotika D.O.O 》" property="og:title" />
+	<meta content="Dobrodošli na naš portal!" property="og:description" />
+	<meta name="author" content="Алекса Маринковић">
+	<meta content="https://marinkovicaleksa.github.io/site/index.html" property="og:url" />
+	<meta content="https://marinkovicaleksa.github.io/site/img/aleksalogo.png" property="og:image" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="#021642" data-react-helmet="true" name="theme-color" />
+  <style>
+    /* Reset i osnove */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-dark: #021642;
+      --primary-medium: #1b263b;
+      --primary-light: #415a77;
+      --accent: #4cc9f0;
+      --accent-hover: #3a9fbf;
+      --text-light: #f8f9fa;
+      --text-dark: #333;
+      --card-bg: #ffffff;
+      --section-bg: #f5f7fa;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--section-bg);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-dark);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 0;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 50px;
+      width: 50px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .hamburger.active {
+      transform: rotate(90deg);
+    }
+
+    /* Main Content */
+    main {
+      padding: 3rem 0;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .page-title p {
+      color: var(--primary-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* About Content */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+      align-items: center;
+    }
+
+    .about-text {
+      padding-right: 1rem;
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+      color: var(--primary-medium);
+      font-size: 1.1rem;
+    }
+
+    .about-image {
+      border-radius: 16px;
+	object-fit: cover;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      height: 400px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      position: relative;
+    }
+
+    .about-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wIDBoMTAwdjEwMEgweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvc3ZnPg==');
+      opacity: 0.1;
+    }
+
+    /* Mission & Vision */
+    .mission-vision {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .mission, .vision {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mission::before, .vision::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .mission:hover, .vision:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .mission:hover::before, .vision:hover::before {
+      transform: scaleX(1);
+    }
+
+    .mission h3, .vision h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mission ul, .vision ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .mission li, .vision li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #eee;
+      color: var(--primary-medium);
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .mission li:last-child, .vision li:last-child {
+      border-bottom: none;
+    }
+
+    .mission li::before, .vision li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Values */
+    .values-section {
+      margin-bottom: 4rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .value-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .value-card h4 {
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .value-card p {
+      color: var(--primary-light);
+    }
+
+    /* Timeline */
+    .timeline-section {
+      margin-bottom: 4rem;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--accent);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      padding: 1.5rem 2rem;
+      position: relative;
+      width: 50%;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-content {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: -10px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid var(--card-bg);
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: -10px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid var(--card-bg);
+    }
+
+    .timeline-content h4 {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-content p {
+      color: var(--primary-light);
+    }
+
+    .timeline-marker {
+      position: absolute;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-marker {
+      right: -10px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-marker {
+      left: -10px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem;
+      border-radius: 16px;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wIDBoMTAwdjEwMEgweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvc3ZnPg==');
+      opacity: 0.1;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: none;
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+    }
+
+    .cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(76, 201, 240, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+
+    /* Mobilni meni */
+    @media (max-width: 768px) {
+      .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        background: var(--primary-dark);
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .page-title h2 {
+        font-size: 2rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .about-text {
+        padding-right: 0;
+      }
+
+      .mission-vision {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 0;
+      }
+
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content::after,
+      .timeline-item:nth-child(even) .timeline-content::after {
+        display: none;
+      }
+
+      .timeline-marker {
+        left: 10px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container h1 {
+        font-size: 1.2rem;
+      }
+
+      .page-title h2 {
+        font-size: 1.8rem;
+      }
+
+      .mission, .vision {
+        padding: 1.5rem;
+      }
+
+      .value-card {
+        padding: 1.5rem;
+      }
+
+      .cta-section {
+        padding: 3rem 1rem;
+      }
+
+      .cta-section h3 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="logo-container">
+        <img class="logo" height="50px" width="50px" src="Robotika2.png" alt="Marin Robotika Logo">
+        <h1>NTS Robotika</h1>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html">Početna</a>
+        <a href="about.html">O kompaniji</a>
+        <a href="clanovi.html">Članovi</a>
+        <a href="contact.html">Kontakt</a>
+      </nav>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-title fade-in">
+      <h2>O kompaniji</h2>
+      <p>Upoznajte našu priču, misiju i viziju budućnosti</p>
+    </div>
+
+    <div class="about-content">
+      <div class="about-text fade-in">
+        <p>
+          Marin Robotika D.O.O. je učenička kompanija osnovana 2025. godine u okviru Tehničke škole "Nikola Tesla".
+          Naš cilj je da kroz praktični rad učenici steknu iskustvo iz oblasti robotike, elektronike i programiranja,
+          ali i da razviju preduzetničke veštine.
+        </p>
+        <p>
+          Kompanija nosi ime po Aleksi Marinkoviću, jednom od najtalentovanijih učenika škole, koji se redovno bavi programiranjem i elektronikom.
+        </p>
+        <p>
+          Danas smo ponosni na naš rast i postignuća. Naši roboti su prisutni na priznatim takmičenjima, a naši članovi
+          kontinuirano usavršavaju svoje veštine u oblastima mehatronike.
+        </p>
+      </div>
+      <div class="about-image fade-in delay-1">
+        <img src="3.jpg" height="fit" width="fit" alt="" style="object-fit: cover;">
+      </div>
+    </div>
+
+    <div class="mission-vision">
+      <div class="mission fade-in delay-1">
+        <h3>🎯 Naša misija</h3>
+        <ul>
+          <li>Podsticanje inovacija među učenicima kroz praktične projekte</li>
+          <li>Razvoj jeftine ali kvalitetne radne snage</li>
+          <li>Stvaranje platforme za primenu teorijskog znanja u praksi</li>
+        </ul>
+      </div>
+      <div class="vision fade-in delay-2">
+        <h3>🔭 Naša vizija</h3>
+        <ul>
+          <li>Postati prava kopmanija</li>
+          <li>Inspirisati nove generacije da se bave mehatronikom</li>
+          <li>Razvijati inovativna rešenja za realne probleme</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="values-section">
+      <div class="page-title fade-in">
+        <h2>Naše vrednosti</h2>
+        <p>Principi koji nas vode ka uspehu</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card fade-in delay-1">
+          <div class="value-icon">💡</div>
+          <h4>Inovativnost</h4>
+          <p>Stalno tražimo nove načine rešavanja problema i unapređujemo postojeća rešenja.</p>
+        </div>
+        <div class="value-card fade-in delay-2">
+          <div class="value-icon">🤝</div>
+          <h4>Timski rad</h4>
+          <p>Verujemo da najbolji rezultati dolaze iz saradnje i zajedničkog napora.</p>
+        </div>
+        <div class="value-card fade-in delay-3">
+          <div class="value-icon">📚</div>
+          <h4>Obrazovanje</h4>
+          <p>Kontinuirano učimo i prenosimo znanje kako bismo napredovali.</p>
+        </div>
+        <div class="value-card fade-in delay-1">
+          <div class="value-icon">🎯</div>
+          <h4>Kvalitet</h4>
+          <p>Ne pristajemo na kompromise kada je u pitanju kvalitet naših rešenja.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-section">
+      <div class="page-title fade-in">
+        <h2>Naša putanja</h2>
+        <p>Ključni trenuci u razvoju kompanije</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4>Septembar 2025.</h4>
+            <p>Osnivanje Marin Robotika D.O.O. u vidu van-nastavne sekcije</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in delay-1">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4>Septembar 2025.</h4>
+            <p>Proširenje tima i formiranje specijalizovanih odeljenja</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in delay-2">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4>Oktobar 2025.</h4>
+            <p>Projektovanje i realizacije prvog robota</p>
+          </div>
+        </div>
+ 
+        <div class="timeline-item fade-in delay-1">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4>Planovi za budućnost</h4>
+            <p>Realizacija i projektovanje više robota...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section fade-in">
+      <div class="cta-content">
+        <h3>Želite da saznate više o našem radu?</h3>
+        <p>Pridružite nam se ili saradjujte sa nama u ostvarivanju naših ciljeva</p>
+        <button class="cta-button" onclick="location.href='contact.html'">Kontaktirajte nas</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Marin Robotika D.O.O. – Aleksa Marinković</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+    const header = document.getElementById('header');
+
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+
+    // Fade in animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
