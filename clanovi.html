@@ -1,810 +1,408 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="sr-RS" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《 NTS Robotika 》</title>
-	<link rel="icon" type="image/x-icon" href="Robotika2.png">
-    <link rel="stylesheet" href="style.css">
-	
-	<meta content="《 Marin Robotika D.O.O 》" property="og:title" />
-	<meta content="Dobrodošli na naš portal!" property="og:description" />
-	<meta name="author" content="Алекса Маринковић">
-	<meta content="https://marinkovicaleksa.github.io/robotika/clanovi.html" property="og:url" />
-	<meta content="https://marinkovicaleksa.github.io/robotika/Robotika2.png" property="og:image" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta content="#021642" data-react-helmet="true" name="theme-color" />
-  <style>
-    /* Reset i osnove */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary-dark: #021642;
-      --primary-medium: #1b263b;
-      --primary-light: #415a77;
-      --accent: #4cc9f0;
-      --accent-hover: #3a9fbf;
-      --text-light: #f8f9fa;
-      --text-dark: #333;
-      --card-bg: #ffffff;
-      --section-bg: #f5f7fa;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background-color: var(--section-bg);
-      overflow-x: hidden;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-
-    /* Header */
-    header {
-      background: var(--primary-dark);
-      color: white;
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled {
-      padding: 0.7rem 0;
-    }
-
-    header .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo {
-      height: 50px;
-      width: 50px;
-      border-radius: 8px;
-      object-fit: contain;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-light);
-    }
-
-    .nav {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s;
-      position: relative;
-      padding: 0.5rem 0;
-    }
-
-    .nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    .nav a:hover {
-      color: var(--accent);
-    }
-
-    .nav a:hover::after {
-      width: 100%;
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: white;
-      transition: transform 0.3s;
-    }
-
-    .hamburger.active {
-      transform: rotate(90deg);
-    }
-
-    /* Main Content */
-    main {
-      padding: 3rem 0;
-    }
-
-    .page-title {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .page-title h2 {
-      font-size: 2.5rem;
-      color: var(--primary-dark);
-      margin-bottom: 1rem;
-    }
-
-    .page-title p {
-      color: var(--primary-light);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Hierarchy Structure */
-    .hierarchy {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 4rem;
-    }
-
-    .level {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-bottom: 3rem;
-      width: 100%;
-    }
-
-    .level-1 {
-      margin-bottom: 2rem;
-    }
-
-    .level-2 {
-      margin-top: 2rem;
-    }
-
-    .connector {
-      height: 40px;
-      width: 2px;
-      background: var(--accent);
-      margin: 0 auto 1rem;
-    }
-
-    /* Employee Cards */
-    .employee-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s;
-      width: 280px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .employee-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-
-    .employee-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .employee-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .employee-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 1.5rem;
-      border: 3px solid var(--accent);
-    }
-
-    .employee-card h3 {
-      color: var(--primary-dark);
-      margin-bottom: 0.5rem;
-      font-size: 1.3rem;
-    }
-
-    .employee-role {
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .employee-department {
-      color: var(--primary-light);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .employee-bio {
-      color: var(--primary-medium);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    /* Employee List */
-    .employee-list-section {
-      background: var(--card-bg);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 2.5rem;
-      margin-top: 3rem;
-    }
-
-    .employee-list-section h3 {
-      color: var(--primary-dark);
-      margin-bottom: 1.5rem;
-      text-align: center;
-      font-size: 1.8rem;
-    }
-
-    .employee-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .employee-list-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      border-radius: 10px;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    .employee-list-item:hover {
-      background: rgba(76, 201, 240, 0.1);
-    }
-
-    .employee-list-img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .employee-list-info h4 {
-      color: var(--primary-dark);
-      margin-bottom: 0.3rem;
-    }
-
-    .employee-list-info p {
-      color: var(--primary-light);
-      font-size: 0.9rem;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: white;
-      border-radius: 16px;
-      padding: 2.5rem;
-      max-width: 600px;
-      width: 100%;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: modalFadeIn 0.3s ease;
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: var(--primary-light);
-      transition: color 0.3s;
-    }
-
-    .close-modal:hover {
-      color: var(--primary-dark);
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-    }
-
-    .modal-info h3 {
-      color: var(--primary-dark);
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
-    }
-
-    .modal-info .employee-role {
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-    }
-
-    .modal-info .employee-department {
-      color: var(--primary-light);
-      margin-bottom: 0;
-    }
-
-    .modal-body {
-      margin-top: 1.5rem;
-    }
-
-    .modal-body h4 {
-      color: var(--primary-dark);
-      margin-bottom: 0.8rem;
-    }
-
-    .modal-body p {
-      color: var(--primary-medium);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    .responsibilities {
-      list-style-type: none;
-    }
-
-    .responsibilities li {
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #eee;
-      color: var(--primary-medium);
-    }
-
-    .responsibilities li:last-child {
-      border-bottom: none;
-    }
-
-    .responsibilities li::before {
-      content: "•";
-      color: var(--accent);
-      font-weight: bold;
-      display: inline-block;
-      width: 1em;
-      margin-left: -1em;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--primary-dark);
-      color: white;
-      text-align: center;
-      padding: 2.5rem 0;
-      margin-top: 3rem;
-    }
-
-    /* Mobilni meni */
-    @media (max-width: 768px) {
-      .nav {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        background: var(--primary-dark);
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem 0;
-        gap: 1.5rem;
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav.active {
-        transform: translateY(0);
-        opacity: 1;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      .page-title h2 {
-        font-size: 2rem;
-      }
-
-      .employee-card {
-        width: 100%;
-        max-width: 280px;
-      }
-
-      .modal-header {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .employee-list {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .logo-container h1 {
-        font-size: 1.2rem;
-      }
-
-      .page-title h2 {
-        font-size: 1.8rem;
-      }
-
-      .employee-list-section {
-        padding: 1.5rem;
-      }
-    }
-  </style>
+    <title>МАРИН СИСТЕМС - Структура компаније</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/employees.css">
 </head>
 <body>
-  <header id="header">
+    <!-- Navigation -->
+    <nav class="employees-nav">
+        <div class="nav-container">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Назад на сајт</span>
+            </a>
+            <div class="nav-title">
+                <h1><i class="fas fa-sitemap"></i> СТРУКТУРА КОМПАНИЈЕ</h1>
+                <p>Хијерархија запослених и одговорности</p>
+            </div>
+            <div class="nav-controls">
+                <button class="view-toggle" id="viewToggle">
+                    <i class="fas fa-th-large"></i>
+                    <span>Пребаци приказ</span>
+                </button>
+                <button class="search-btn" id="searchToggle">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Panel -->
+    <div class="search-panel" id="searchPanel">
+        <div class="search-container">
+            <input type="text" id="employeeSearch" placeholder="Претражите запослене по имену, позицији или одељењу..." autocomplete="off">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- Hierarchy View -->
     <div class="container">
-      <div class="logo-container">
-        <img class="logo" height="50px" width="50px" src="Robotika2.png" alt="Marin Robotika Logo">
-        <h1>NTS Robotika</h1>
-      </div>
-      <nav class="nav" id="nav">
-        <a href="index.html">Početna</a>
-        <a href="about.html">O kompaniji</a>
-        <a href="clanovi.html">Članovi</a>
-        <a href="contact.html">Kontakt</a>
-      </nav>
-      <div class="hamburger" id="hamburger">&#9776;</div>
+        <div class="hierarchy-view active" id="hierarchyView">
+            <!-- Company Tree -->
+            <div class="org-tree">
+                <!-- Level 1: CEO -->
+                <div class="level level-1">
+                    <div class="level-label">
+                        <i class="fas fa-crown"></i>
+                        <span>Извршно руководство</span>
+                    </div>
+                    <div class="employees-grid">
+                        <div class="employee-card ceo" data-id="1" onclick="viewEmployee(1)">
+                            <div class="card-glow"></div>
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/alexa.png" alt="Алекса Маринковић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>АЛЕКСА МАРИНКОВИЋ</h3>
+                                <div class="employee-role">ИЗВРШНИ ДИРЕКТОР</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Ниво: 255</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-gold">CEO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 2: Directors -->
+                <div class="level level-2">
+                    <div class="level-label">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Директори и менаџери</span>
+                    </div>
+                    <div class="employees-grid">
+                        <div class="employee-card director" data-id="2" onclick="viewEmployee(2)">
+                            <div class="card-glow"></div>
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/milica.png" alt="Милица Петровић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>МИЛИЦА ПЕТРОВИЋ</h3>
+                                <div class="employee-role">ТЕХНИЧКИ ДИРЕКТОР</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Ниво: 200</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-silver">Директор</span>
+                            </div>
+                        </div>
+
+                        <div class="employee-card director" data-id="3" onclick="viewEmployee(3)">
+                            <div class="card-glow"></div>
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/marko.png" alt="Марко Јовановић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge away"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>МАРКО ЈОВАНОВИЋ</h3>
+                                <div class="employee-role">ОПЕРАТИВНИ ДИРЕКТОР</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Ниво: 190</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-silver">Директор</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 3: Department Heads -->
+                <div class="level level-3">
+                    <div class="level-label">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Шефови одељења</span>
+                    </div>
+                    <div class="employees-grid">
+                        <div class="employee-card dept-head" data-id="4" onclick="viewEmployee(4)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/ana.png" alt="Ана Стојановић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>АНА СТОЈАНОВИЋ</h3>
+                                <div class="employee-role">ШЕФ РАЗВОЈА СОФТВЕРА</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Ниво: 150</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-bronze">Шеф одељења</span>
+                            </div>
+                        </div>
+
+                        <div class="employee-card dept-head" data-id="5" onclick="viewEmployee(5)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/stevan.png" alt="Стеван Николић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>СТЕВАН НИКОЛИЋ</h3>
+                                <div class="employee-role">ШЕФ ТЕХНИЧКЕ ПОДРШКЕ</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Ниво: 140</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-bronze">Шеф одељења</span>
+                            </div>
+                        </div>
+
+                        <div class="employee-card dept-head" data-id="6" onclick="viewEmployee(6)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/jelena.png" alt="Јелена Михајловић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge offline"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>ЈЕЛЕНА МИХАЈЛОВИЋ</h3>
+                                <div class="employee-role">ШЕФ ПРОИЗВОДЊЕ</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Ниво: 135</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-bronze">Шеф одељења</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 4: Senior Staff -->
+                <div class="level level-4">
+                    <div class="level-label">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Сениори и стручњаци</span>
+                    </div>
+                    <div class="employees-grid">
+                        <!-- Senior Developers -->
+                        <div class="employee-card senior" data-id="7" onclick="viewEmployee(7)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/nikola.png" alt="Никола Димитријевић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>НИКОЛА ДИМИТРИЈЕВИЋ</h3>
+                                <div class="employee-role">СЕНИОР РАЗВОЈНИК</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-star"></i>
+                                    <span>Ниво: 120</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-blue">Сениор</span>
+                            </div>
+                        </div>
+
+                        <div class="employee-card senior" data-id="8" onclick="viewEmployee(8)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/sara.png" alt="Сара Илић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>САРА ИЛИЋ</h3>
+                                <div class="employee-role">СЕНИОР ДИЗАЈНЕР</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-star"></i>
+                                    <span>Ниво: 115</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-blue">Сениор</span>
+                            </div>
+                        </div>
+
+                        <!-- Senior Technicians -->
+                        <div class="employee-card senior" data-id="9" onclick="viewEmployee(9)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/dusan.png" alt="Душан Поповић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge away"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>ДУШАН ПОПОВИЋ</h3>
+                                <div class="employee-role">СЕНИОР ТЕХНИЧАР</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-star"></i>
+                                    <span>Ниво: 110</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-blue">Сениор</span>
+                            </div>
+                        </div>
+
+                        <div class="employee-card senior" data-id="10" onclick="viewEmployee(10)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/tamara.png" alt="Тамара Симић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>ТАМАРА СИМИЋ</h3>
+                                <div class="employee-role">СЕНИОР 3D МОДЕЛЕР</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-star"></i>
+                                    <span>Ниво: 105</span>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge badge-blue">Сениор</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 5: Regular Staff -->
+                <div class="level level-5">
+                    <div class="level-label">
+                        <i class="fas fa-users"></i>
+                        <span>Запослени</span>
+                    </div>
+                    <div class="employees-grid">
+                        <!-- Regular staff - first row -->
+                        <div class="employee-card regular" data-id="11" onclick="viewEmployee(11)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/ivan.png" alt="Иван Станковић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>ИВАН СТАНКОВИЋ</h3>
+                                <div class="employee-role">РАЗВОЈНИК СОФТВЕРА</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-user"></i>
+                                    <span>Ниво: 85</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="employee-card regular" data-id="12" onclick="viewEmployee(12)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/marija.png" alt="Марија Тодоровић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge online"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>МАРИЈА ТОДОРОВИЋ</h3>
+                                <div class="employee-role">ДИЗАЈНЕР ПРОИЗВОДА</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-user"></i>
+                                    <span>Ниво: 80</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="employee-card regular" data-id="13" onclick="viewEmployee(13)">
+                            <div class="employee-avatar">
+                                <img src="assets/portraits/petar.png" alt="Петар Живановић" onerror="this.src='assets/default-avatar.png'">
+                                <div class="status-badge offline"></div>
+                            </div>
+                            <div class="employee-info">
+                                <h3>ПЕТАР ЖИВАНОВИЋ</h3>
+                                <div class="employee-role">ТЕХНИЧАР ХАРДВЕРА</div>
+                                <div class="employee-level">
+                                    <i class="fas fa-user"></i>
+                                    <span>Ниво: 75</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add more button -->
+                        <div class="employee-card more-card" onclick="showAllStaff()">
+                            <div class="more-content">
+                                <i class="fas fa-ellipsis-h"></i>
+                                <span>Прикажи још 8 запослених</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid View (Hidden by default) -->
+        <div class="grid-view" id="gridView">
+            <div class="grid-header">
+                <h2><i class="fas fa-th-large"></i> Сви запослени</h2>
+                <div class="grid-filters">
+                    <select id="departmentFilter">
+                        <option value="">Сва одељења</option>
+                        <option value="management">Менаџмент</option>
+                        <option value="development">Развој софтвера</option>
+                        <option value="design">Дизајн</option>
+                        <option value="technical">Техничка подршка</option>
+                        <option value="production">Производња</option>
+                    </select>
+                    <select id="levelFilter">
+                        <option value="">Сви нивои</option>
+                        <option value="executive">Извршни (200+)</option>
+                        <option value="senior">Сениори (100-199)</option>
+                        <option value="regular">Запослени (0-99)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="employees-grid" id="gridEmployees">
+                <!-- Grid employees will be loaded here by JavaScript -->
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main class="container">
-    <div class="page-title">
-      <h2>Naša kompanija</h2>
-      <p>Upoznajte naš tim stručnjaka koji stoji iza uspeha Marin Robotike</p>
+    <!-- Connection Lines (for hierarchy visualization) -->
+    <svg class="connection-lines" id="connectionLines">
+        <!-- Lines will be drawn by JavaScript -->
+    </svg>
+
+    <!-- Statistics Panel -->
+    <div class="stats-panel">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number" id="totalEmployees">14</div>
+                <div class="stat-label">Укупно запослених</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number" id="onlineEmployees">10</div>
+                <div class="stat-label">Активни на послу</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number" id="avgLevel">125</div>
+                <div class="stat-label">Просечан ниво</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Одељења</div>
+            </div>
+        </div>
     </div>
 
-    <div class="hierarchy">
-		
-     <!-- Level 1 - CEO -->
-		 <!--
-      <div class="level level-1">
-        <div class="employee-card" data-id="1">
-          <img src="am.png" alt="Aleksa Marinković" class="employee-img">
-          <h3>Aleksa Marinković</h3>
-          <p class="employee-role">Izvršni direktor</p>
-          <p class="employee-department">Rukovodstvo</p>
-          <p class="employee-bio">Učenik III razreda - Elektrotehničar računara</p>
-        </div>
-      </div>
-		-->
-
-      <!-- Level 2 - Central Committee -->
-      <div class="level level-2">
-        <div class="employee-card" data-id="2">
-          <img src="PORTRAIT.png" alt="Aleksa Marinković" class="employee-img">
-          <h3>Aleksa Marinković</h3>
-          <p class="employee-role">Izvršni direktor</p>
-          <p class="employee-department">Centralni komitet</p>
-          <p class="employee-bio">Učenik III razreda - Elektrotehničar računara</p>
-        </div>
-        
-        <div class="employee-card" data-id="3">
-          <img src="np.png" alt="Nemanja Pavić" class="employee-img">
-          <h3>Nemanja Pavić</h3>
-          <p class="employee-role">v. d. Zamenik direktora</p>
-
-          <p class="employee-department">Centralni komitet</p>
-          <p class="employee-bio">Učenik III razreda - Elektrotehničar računara</p>
-        </div>
-      </div>
-    </div>
-
-	        <!-- Connector -->
-      <div class="connector"></div>
-	  
-    <!-- Employee List Section -->
-    <div class="employee-list-section">
-      <h3>Članovi kompanije</h3>
-      <div class="employee-list">
-		  
-        <div class="employee-list-item" data-id="1">
-          <img src="PORTRAIT.png" alt="Aleksa Marinković" class="employee-list-img">
-          <div class="employee-list-info">
-            <h4>Aleksa Marinković</h4>
-            <p>Izvršni direktor</p>
-          </div>
-        </div>
-        
-        <div class="employee-list-item" data-id="3">
-          <img src="np.png" alt="Nemanja Pavić" class="employee-list-img">
-          <div class="employee-list-info">
-            <h4>Nemanja Pavić</h4>
-            <p>v. d. Zamenik direktora</p>
-          </div>
-        </div>
-        
-		  <!--
-        <div class="employee-list-item" data-id="4">
-          <img src="viber_image_2025-10-01_01-27-04-126.jpg" alt="Vladimir Fodora" class="employee-list-img">
-          <div class="employee-list-info">
-            <h4>Vladimir Fodora</h4>
-            <p>Asistent-profesor</p>
-          </div>
-        </div>
-		  -->
-        
-
-		  
-		          <div class="employee-list-item" data-id="6">
-          <img src="mp.png" alt="Mihajlo Petrović" class="employee-list-img">
-          <div class="employee-list-info">
-            <h4>Mihajlo Petrović</h4>
-            <p>Pomoćni radnik</p>
-          </div>
-        </div>
-		  
-		          <div class="employee-list-item" data-id="5">
-          <img src="milica.png" alt="Milica Pap" class="employee-list-img">
-          <div class="employee-list-info">
-            <h4>Milica Pap</h4>
-            <p>Pomoćni radnik</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Modal for Employee Details -->
-  <div class="modal" id="employeeModal">
-    <div class="modal-content">
-      <span class="close-modal" id="closeModal">&times;</span>
-      <div class="modal-header">
-        <img src="" alt="" class="modal-img" id="modalImg">
-        <div class="modal-info">
-          <h3 id="modalName"></h3>
-          <p class="employee-role" id="modalRole"></p>
-          <p class="employee-department" id="modalDepartment"></p>
-        </div>
-      </div>
-      <div class="modal-body">
-        <h4>Biografija</h4>
-        <p id="modalBio"></p>
-        
-        <h4>Odgovornosti</h4>
-        <ul class="responsibilities" id="modalResponsibilities">
-          <!-- Responsibilities will be added dynamically -->
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Marin Robotika D.O.O. – Aleksa Marinković</p>
-  </footer>
-
-  <script>
-    // Employee data
-    const employees = {
-      1: {
-        name: "Aleksa Marinković",
-        role: "Izvršni direktor",
-        department: "Rukovodstvo",
-        bio: "Učenik III razreda smera Elektrotehničar računara. Aleksa je osnivač i izvršni direktor Marin Robotike. Ima strast prema mehatronici i programiranju, a posebno se istakao u projektovanju raznih analognih i digitalnih kola.",
-        responsibilities: [
-          "Vrednovanje kvaliteta",
-          "Tim za programiranje",
-          "Odsek za analognu i digitalnu elektroniku",
-			"Tim za projektovanje mehatronike",
-          "Ljudski resursi"
-        ],
-        img: "PORTRAIT.png"
-      },
-      2: {
-        name: "Aleksa Marinković",
-        role: "Izvršni direktor",
-        department: "Rukovodstvo",
-        bio: "Učenik III razreda smera Elektrotehničar računara. Aleksa je osnivač i izvršni direktor Marin Robotike. Ima strast prema mehatronici i programiranju, a posebno se istakao u projektovanju raznih analognih i digitalnih kola.",
-        responsibilities: [
-          "Vrednovanje kvaliteta",
-          "Tim za programiranje",
-          "Odsek za analognu i digitalnu elektroniku",
-			"Tim za projektovanje mehatronike",
-          "Ljudski resursi"
-        ],
-        img: "PORTRAIT.png"
-      },
-      3: {
-        name: "Nemanja Pavić",
-        role: "v. d. Zamenik direktora",
-        department: "Rukovodstvo",
-        bio: "Učenik III razreda smera Elektrotehničar računara. Nemanja je kĺjučna karika u razvoju analognih i digitalnih kola. Njegova preciznost i tehničko znanje čine ga neizostavnim u svakom projektu.",
-        responsibilities: [
-          "Vrednovanje kvaliteta",
-          "Tim za programiranje",
-          "Odsek za analognu i digitalnu elektroniku",
-          "Tim za propagandu"
-        ],
-        img: "np.png"
-      },
-		
-		      4: {
-        name: "Vladimir Fodora",
-        role: "šegrt",
-        department: "Konstruktor",
-        bio: "Asistent-profesor elektrotehničke grupe predmeta.",
-        responsibilities: [
-          "Vrednovanje kvaliteta",
-          "Tim za propagandu"
-        ],
-        img: "4.jpg"
-      },
-
-      5: {
-        name: "Milica Pap",
-        role: "Pomoćni radnik",
-        bio: "Učenica III razreda smera Elektrotehničar računara. Milica je kreativni konstruktor specijalizovan za LEGO robote. Njeni dizajni kombinuju funkcionalnost i estetiku, čineći naše robote atraktivnim i efikasnim.",
-        responsibilities: [
-          "Pomoćni radnik",
-          "Tim za testiranje mehatronike"        ],
-        img: "milica.png"
-      },
-		      6: {
-        name: "Mihajlo Petrović",
-        role: "Pomoćni radnik",
-        bio: "Učenik III razreda smera Elektrotehničar računara. Mihajlo se bavi preciznim kalkulacijama u poljima matematike i elektrotehnike.",
-        responsibilities: [
-          "Pomoćni radnik"
-        ],
-        img: "mp.png"
-      }
-    };
-
-    // DOM Elements
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('nav');
-    const header = document.getElementById('header');
-    const modal = document.getElementById('employeeModal');
-    const closeModal = document.getElementById('closeModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalName = document.getElementById('modalName');
-    const modalRole = document.getElementById('modalRole');
-    const modalDepartment = document.getElementById('modalDepartment');
-    const modalBio = document.getElementById('modalBio');
-    const modalResponsibilities = document.getElementById('modalResponsibilities');
-
-    // Mobile menu toggle
-    hamburger.addEventListener('click', () => {
-      nav.classList.toggle('active');
-      hamburger.classList.toggle('active');
-    });
-
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        hamburger.classList.remove('active');
-      });
-    });
-
-    // Open modal when clicking on employee card or list item
-    document.querySelectorAll('.employee-card, .employee-list-item').forEach(element => {
-      element.addEventListener('click', () => {
-        const employeeId = element.getAttribute('data-id');
-        openEmployeeModal(employeeId);
-      });
-    });
-
-    // Close modal
-    closeModal.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
-
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-      }
-    });
-
-    // Function to open employee modal
-    function openEmployeeModal(id) {
-      const employee = employees[id];
-      
-      if (employee) {
-        modalImg.src = employee.img;
-        modalImg.alt = employee.name;
-        modalName.textContent = employee.name;
-        modalRole.textContent = employee.role;
-        modalDepartment.textContent = employee.department;
-        modalBio.textContent = employee.bio;
-        
-        // Clear previous responsibilities
-        modalResponsibilities.innerHTML = '';
-        
-        // Add responsibilities
-        employee.responsibilities.forEach(responsibility => {
-          const li = document.createElement('li');
-          li.textContent = responsibility;
-          modalResponsibilities.appendChild(li);
-        });
-        
-        modal.classList.add('active');
-      }
-    }
-  </script>
+    <!-- JavaScript -->
+    <script src="js/employees.js"></script>
 </body>
-
 </html>
-
-
