@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="sr-RS" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МАРИН СИСТЕМС - Профил запосленог</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent-light: #16a2f2;
+            --accent-dark: #1c48ca;
+            --gradient-primary: linear-gradient(135deg, #16a2f2 0%, #1c48ca 100%);
+            --gradient-secondary: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --radius: 12px;
+            --shadow: 0 8px 30px rgba(2, 22, 66, 0.12);
+            --shadow-lg: 0 15px 40px rgba(2, 22, 66, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--light-bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(22, 162, 242, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(28, 72, 202, 0.05) 0%, transparent 20%);
+            z-index: -1;
+        }
+
+        /* Profile Container */
+        .profile-container {
+            width: 100%;
+            max-width: 600px;
+            animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(2, 22, 66, 0.2);
+        }
+
+        /* Header with geometric pattern */
+        .profile-header {
+            background: var(--gradient-primary);
+            padding: 40px 30px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(45deg, 
+                    transparent, 
+                    transparent 10px, 
+                    rgba(255, 255, 255, 0.05) 10px, 
+                    rgba(255, 255, 255, 0.05) 20px);
+            opacity: 0.3;
+        }
+
+        /* Company Logo Badge */
+        .company-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Avatar Section */
+        .avatar-section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            z-index: 2;
+        }
+
+        .avatar-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--white);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-glow {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            animation: pulse 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Status Badge */
+        .status-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--success);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            border: 3px solid var(--white);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+        }
+
+        /* User Info */
+        .user-info {
+            color: white;
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-role {
+            font-size: 1.2rem;
+            font-weight: 600;
+            opacity: 0.95;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .role-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Employee ID */
+        .employee-id {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Details Section */
+        .profile-content {
+            padding: 40px 35px 35px;
+            position: relative;
+            margin-top: -40px;
+            background: var(--white);
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .detail-card {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-light);
+            transition: all 0.3s ease;
+        }
+
+        .detail-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .detail-icon {
+            color: var(--accent-dark);
+            font-size: 1.2rem;
+            width: 30px;
+            height: 30px;
+            background: rgba(22, 162, 242, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--accent-dark);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Bio Section */
+        .bio-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .bio-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(22, 162, 242, 0.1);
+        }
+
+        .bio-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-dark);
+            margin: 0;
+        }
+
+        .bio-icon {
+            color: var(--accent-light);
+            font-size: 1.5rem;
+        }
+
+        .bio-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: var(--accent-dark);
+            font-weight: 600;
+            background: rgba(22, 162, 242, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Skills Tags */
+        .skills-section {
+            margin-top: 25px;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, rgba(22, 162, 242, 0.1) 0%, rgba(28, 72, 202, 0.1) 100%);
+            color: var(--accent-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(22, 162, 242, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(22, 162, 242, 0.2) 0%, rgba(28, 72, 202, 0.2) 100%);
+            box-shadow: 0 5px 15px rgba(22, 162, 242, 0.1);
+        }
+
+        /* Footer */
+        .profile-footer {
+            background: var(--gradient-secondary);
+            padding: 25px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .company-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .security-badge:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .security-icon {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        /* Animations for content */
+        .detail-card, .bio-section, .skills-section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s forwards;
+        }
+
+        .detail-card:nth-child(1) { animation-delay: 0.1s; }
+        .detail-card:nth-child(2) { animation-delay: 0.2s; }
+        .detail-card:nth-child(3) { animation-delay: 0.3s; }
+        .bio-section { animation-delay: 0.4s; }
+        .skills-section { animation-delay: 0.5s; }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-container {
+                max-width: 100%;
+            }
+            
+            .avatar-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .user-name {
+                font-size: 1.8rem;
+            }
+            
+            .profile-content {
+                padding: 30px 20px;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-header {
+                padding: 30px 20px 70px;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .user-name {
+                font-size: 1.6rem;
+            }
+            
+            .user-role {
+                font-size: 1.1rem;
+            }
+            
+            .company-badge {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-card">
+            <!-- Header Section -->
+            <div class="profile-header">
+                <div class="company-badge">
+                    <i class="fas fa-building"></i>
+                    МАРИН СИСТЕМС
+                </div>
+                
+                <div class="avatar-section">
+                    <div class="avatar-container">
+                        <div class="avatar-glow"></div>
+                        <img src="PORTRAIT.png" 
+                             alt="Алекса Маринковић" 
+                             class="avatar"
+                             onerror="this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"%2316a2f2\"/><text x=\"50\" y=\"60\" text-anchor=\"middle\" fill=\"white\" font-size=\"40\" font-family=\"Arial\">АМ</text></svg>'">
+                        <div class="status-badge" title="Активан запослени">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="user-info">
+                        <h1 class="user-name">АЛЕКСА МАРИНКОВИЋ</h1>
+                        <div class="user-role">
+                            ИЗВРШНИ ДИРЕКТОР
+                            <span class="role-badge">НИВО 255</span>
+                        </div>
+                        <div class="employee-id">
+                            <i class="fas fa-id-card"></i> ID: MR-255-001
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Section -->
+            <div class="profile-content">
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="detail-label">ОБРАЗОВАЊЕ</div>
+                        </div>
+                        <div class="detail-value">Електротехничка школа</div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div class="detail-label">РАЗРЕД</div>
+                        </div>
+                        <div class="detail-value">IV-4 (Дипломирани)</div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="detail-label">СМЕР</div>
+                        </div>
+                        <div class="detail-value">Електротехничар рачунара</div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <div class="detail-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="detail-label">ПОЗИЦИЈА</div>
+                        </div>
+                        <div class="detail-value">Извршни директор & Оснивач</div>
+                    </div>
+                </div>
+                
+                <!-- Biography Section -->
+                <div class="bio-section">
+                    <div class="bio-header">
+                        <div class="bio-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 class="bio-title">ПРОФЕСИОНАЛНИ ПРОФИЛ</h3>
+                    </div>
+                    <div class="bio-content">
+                        Алекса Маринковић је <span class="highlight">извршни директор</span> и један од оснивача <span class="highlight">Марин Системс Д.О.О.</span> 
+                        Са преко 5 година искуства у области ИТ и роботике, специјализован је за напредне технологије и управљање пројектима.
+                    </div>
+                    
+                    <div class="skills-section">
+                        <div class="detail-label" style="margin-bottom: 15px;">СТРУЧНЕ ВЕШТИНЕ</div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Пројектовање електронских кола</span>
+                            <span class="skill-tag">3D моделирање</span>
+                            <span class="skill-tag">Програмирање</span>
+                            <span class="skill-tag">Управљање пројектима</span>
+                            <span class="skill-tag">ИТ инфраструктура</span>
+                            <span class="skill-tag">Роботика</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Section -->
+            <div class="profile-footer">
+                <div class="company-name">МАРИН СИСТЕМС Д.О.О</div>
+                <div style="opacity: 0.9; font-size: 0.95rem; margin-bottom: 10px;">Систем управљања запосленима</div>
+                
+                <div class="security-badge">
+                    <div class="security-icon">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Потврђен идентитет</div>
+                        <div style="font-weight: 700; letter-spacing: 1px;">КЉУЧ: MR-090112-АМ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
