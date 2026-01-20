@@ -1,469 +1,767 @@
 <!DOCTYPE html>
-<html lang="sr" class="scroll-smooth">
+<html lang="sr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《 NTS Robotika 》</title>
-	<link rel="icon" type="image/x-icon" href="Robotika2.png">
-	<link rel="stylesheet" href="styles.css">
-	
-	<meta content="《 Marin Robotika D.O.O 》" property="og:title" />
+    <title>Marin Systems</title>
+	<link rel="icon" type="image/x-icon" href="MS.png">
+	<meta content="Marin Systems Ltd." property="og:title" />
 	<meta content="Dobrodošli na naš portal!" property="og:description" />
 	<meta name="author" content="Алекса Маринковић">
 	<meta content="https://marinkovicaleksa.github.io/robotika/index.html" property="og:url" />
 	<meta content="https://marinkovicaleksa.github.io/robotika/Robotika2.png" property="og:image" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta content="#021642" data-react-helmet="true" name="theme-color" />
-  <style>
-    /* Reset i osnove */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
     :root {
-      --primary-dark: #021642;
-      --primary-medium: #1b263b;
-      --primary-light: #415a77;
-      --accent: #4cc9f0;
-      --accent-hover: #3a9fbf;
-      --text-light: #f8f9fa;
-      --text-dark: #333;
-      --card-bg: #ffffff;
-      --section-bg: #f5f7fa;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+        --primary: #0066cc;   
+        --secondary: #004d99;    
+        --accent: #00bfff;       
+        --accent-light: #e6f7ff;   
+        --light: #f8fcff;       
+        --dark: #003366;      
+        --gray: #4a6572;           
+        --success: #00cc88;     
     }
-
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
     body {
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background-color: var(--section-bg);
-      overflow-x: hidden;
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background-color: #fff;
+        overflow-x: hidden;
+        background-color: var(--light);
     }
-
+    
+    h1, h2, h3, h4, h5 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+        color: var(--primary);
+    }
+    
     .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-
-    header {
-      background: var(--primary-dark);
-      color: white;
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled {
-      padding: 0.7rem 0;
-    }
-
-    header .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo {
-      height: 50px;
-      width: 50px;
-      border-radius: 8px;
-      object-fit: contain;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-light);
-    }
-
-    .nav {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s;
-      position: relative;
-      padding: 0.5rem 0;
-    }
-
-    .nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    .nav a:hover {
-      color: var(--accent);
-    }
-
-    .nav a:hover::after {
-      width: 100%;
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: white;
-      transition: transform 0.3s;
-    }
-
-    .hamburger.active {
-      transform: rotate(90deg);
-    }
-
-    .hero {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
-      color: white;
-      text-align: center;
-      padding: 6rem 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0wIDBoMTAwdjEwMEgweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvc3ZnPg==');
-      opacity: 0.1;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero h2 {
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      font-size: 1.3rem;
-      margin-bottom: 2.5rem;
-      opacity: 0.9;
-    }
-
-    .cta-button {
-      background: var(--accent);
-      color: var(--primary-dark);
-      border: none;
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
-    }
-
-    .cta-button:hover {
-      background: var(--accent-hover);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(76, 201, 240, 0.4);
-    }
-
-    .features-section {
-      padding: 5rem 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      color: var(--primary-dark);
-      margin-bottom: 1rem;
-    }
-
-    .section-title p {
-      color: var(--primary-light);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 2.5rem 2rem;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      flex: 1 1 300px;
-      transition: all 0.3s;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .card h3 {
-      color: var(--primary-dark);
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .card p {
-      color: var(--primary-light);
-    }
-
-    footer {
-      background: var(--primary-dark);
-      color: white;
-      text-align: center;
-      padding: 2.5rem 0;
-      margin-top: 3rem;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in {
-      animation: fadeInUp 0.8s ease forwards;
-    }
-
-    .delay-1 {
-      animation-delay: 0.2s;
-    }
-
-    .delay-2 {
-      animation-delay: 0.4s;
-    }
-
-    /* Mobilni meni */
-    @media (max-width: 768px) {
-      .nav {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        background: var(--primary-dark);
         width: 100%;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem 0;
-        gap: 1.5rem;
-        transform: translateY(-100%);
-        opacity: 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 15px rgba(0, 102, 204, 0.1);
         transition: all 0.3s ease;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav.active {
-        transform: translateY(0);
-        opacity: 1;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      .hero h2 {
-        font-size: 2.2rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-
-      .section-title h2 {
-        font-size: 2rem;
-      }
-
-      .card {
-        padding: 2rem 1.5rem;
-      }
     }
-
-    @media (max-width: 480px) {
-      .logo-container h1 {
-        font-size: 1.2rem;
-      }
-
-      .hero {
-        padding: 4rem 1rem;
-      }
-
-      .hero h2 {
+    
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+    
+    .logo-text {
+        font-family: 'Montserrat', sans-serif;
         font-size: 1.8rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .features-section {
-        padding: 3rem 0;
-      }
+        font-weight: 700;
+        color: var(--primary);
+        margin-left: 10px;
     }
-  </style>
+    
+    .logo-text span {
+        color: var(--accent);
+    }
+    
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+    
+    .nav-links li {
+        margin-left: 30px;
+    }
+    
+    .nav-links a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .nav-links a:hover {
+        color: var(--accent);
+    }
+    
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: var(--accent);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+    
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary);
+        cursor: pointer;
+    }
+    
+    .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(0, 102, 204, 0.9) 0%, rgba(0, 191, 255, 0.85) 100%), url('https://marinkovicaleksa.github.io/robotika/3.jpg');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding-top: 80px;
+    }
+    
+    .hero-content {
+        max-width: 800px;
+        animation: fadeInUp 1s ease;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        color: white;
+    }
+    
+    .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background-color: var(--accent);
+        color: white;
+        padding: 15px 35px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        border: 2px solid var(--accent);
+        box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
+    }
+    
+    .cta-button:hover {
+        background-color: transparent;
+        color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 191, 255, 0.4);
+    }
+    
+    section {
+        padding: 100px 0;
+    }
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        position: relative;
+        display: inline-block;
+        padding-bottom: 15px;
+    }
+    
+    .section-title h2::after {
+        content: '';
+        position: absolute;
+        width: 70px;
+        height: 3px;
+        background: linear-gradient(to right, var(--accent), var(--primary));
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .about-content {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+    
+    .about-text {
+        flex: 1;
+    }
+    
+    .about-text p {
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        color: var(--gray);
+    }
+    
+    .about-image {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 102, 204, 0.1);
+        transform: perspective(1000px) rotateY(-10deg);
+        transition: transform 0.5s ease;
+        border: 1px solid rgba(0, 191, 255, 0.1);
+    }
+    
+    .about-image:hover {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    
+    .about-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .services {
+        background-color: var(--accent-light);
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    
+    .service-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 102, 204, 0.08);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        border-top: 4px solid var(--accent);
+    }
+    
+    .service-card.animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 102, 204, 0.15);
+        border-top: 4px solid var(--primary);
+    }
+    
+    .service-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--accent-light), rgba(0, 191, 255, 0.2));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        color: var(--primary);
+        font-size: 2rem;
+        border: 2px solid rgba(0, 191, 255, 0.2);
+    }
+    
+    .service-card h3 {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+    }
+    
+    .contact-content {
+        display: flex;
+        gap: 50px;
+    }
+    
+    .contact-info {
+        flex: 1;
+    }
+    
+    .contact-form {
+        flex: 1;
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: var(--accent-light);
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+    
+    .contact-item:hover {
+        transform: translateX(5px);
+        background-color: rgba(0, 191, 255, 0.05);
+    }
+    
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--accent), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+    
+    .contact-details h3 {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+        color: var(--primary);
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--primary);
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #b3e0ff;
+        border-radius: 5px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: var(--accent-light);
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+        background-color: white;
+    }
+    
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    .submit-btn {
+        background: linear-gradient(to right, var(--accent), var(--primary));
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+    }
+    
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 102, 204, 0.4);
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+    }
+    
+    footer {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 60px 0 30px;
+    }
+    
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+    
+    .footer-logo {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 20px;
+    }
+    
+    .footer-logo span {
+        color: var(--accent);
+    }
+    
+    .social-icons {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+        background-color: var(--accent);
+        transform: translateY(-3px) scale(1.1);
+    }
+    
+    .copyright {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .hero p strong {
+        color: var(--accent);
+    }
+    
+    .about-text p:first-child::first-letter {
+        font-size: 2.5rem;
+        color: var(--primary);
+        font-weight: bold;
+        float: left;
+        line-height: 1;
+        margin-right: 8px;
+        margin-top: 4px;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+        .hero h1 {
+            font-size: 2.8rem;
+        }
+        
+        .about-content, .contact-content {
+            flex-direction: column;
+        }
+        
+        .about-image {
+            order: -1;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .mobile-menu-btn {
+            display: block;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.1);
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .nav-links li {
+            margin: 15px 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+        }
+        
+        .contact-item {
+            padding: 15px;
+        }
+    }
+</style>
 </head>
 <body>
-  <header id="header">
-    <div class="container">
-      <div class="logo-container">
-        <img class="logo" height="50px" width="50px" src="Robotika2.png" alt="Marin Robotika Logo">
-        <h1>NTS Robotika</h1>
-      </div>
-      <nav class="nav" id="nav">
-        <a href="index.html">Početna</a>
-        <a href="about.html">O kompaniji</a>
-        <a href="clanovi.html">Članovi</a>
-        <a href="contact.html">Kontakt</a>
-      </nav>
-      <div class="hamburger" id="hamburger">&#9776;</div>
-    </div>
-  </header>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img class="logo-circle" src="MARIN_SYSTEMS.png" height="30px" width="auto" alt="Marin Systems Logo">
+                </a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Početna</a></li>
+                    <li><a href="#about">O nama</a></li>
+                    <li><a href="#services">Usluge</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content fade-in">
-        <h2>Marin Robotika D.O.O</h2>
-        <p>Učenička kompanija Tehničke škole "Nikola Tesla" -&nbsp; &nbsp;najbolji roboti od srbije do francuske!</p>
-        <button class="cta-button" onclick="location.href='about.html'">Otkrijte više</button>
-      </div>
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Inovativna IT rešenja</h1>
+                <p>Marin Systems je mala IT i robotska firma koja pruža najsavremenija rešenja za IT i robotiku. Naša misija je da kreiramo budućnost kroz tehnologiju.</p>
+                <a href="#contact" class="cta-button">Započnite Saradnju</a>
+            </div>
+        </div>
     </section>
 
-    <section class="features-section">
-      <div class="container">
-        <div class="section-title fade-in">
-          <h2>Naše oblasti delovanja</h2>
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>O nama</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Osnovani 2025. godine, Marin Systems je mala firma učenika Tehničke škole "Nikola Tesla" koja se bavi programiranjem, elektronikom i robotikom.</p>
+                    <p>Naši zaposleni čine učenike koji su zainteresovani da se bavi tehnologijom i da steknu iskustvo u oblasti robotike, elektronike i programiranja.</p>
+                    <p>Naš cilj, pre svega, je edukacija i napredovanje sticanjem znanja i iskustva naših zaposlenih kroz profesionalnu praksu u navedenim oblastima.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://marinkovicaleksa.github.io/robotika/3.jpg" alt="Marin Systems Office">
+                </div>
+            </div>
         </div>
-        <div class="features">
-          <div class="card fade-in delay-1">
-            <h3>🤖 Robotika</h3>
-            <p>Projektovanje i izrada edukativnih robota za razna priznata takmičenja</p>
-          </div>
-          <div class="card fade-in delay-1">
-            <h3>⚡ Elektronika</h3>
-            <p>Raspolažemo raznim mikrokontrolerima, motorima i senzorima</p>
-          </div>
-          <div class="card fade-in delay-2">
-            <h3>🎓 Obrazovanje</h3>
-            <p>Interaktivne radionice i praktična obuka za nove generacije</p>
-          </div>
-        </div>
-      </div>
     </section>
-  </main>
 
-  <footer>
-    <p>&copy; 2025 Marin Robotika D.O.O. – Aleksa Marinkovic</p>
-  </footer>
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Naše Usluge</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card" id="service1">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Robotika</h3>
+                    <p>Dizajn i implementacija robotskih sistema za različite namene</p>
+                </div>
+                
+                
+                <div class="service-card" id="service3">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Softverska rešenja</h3>
+                    <p>Kreiranje skalabilnih i sigurnih softverskih rešenja po meri, od veb aplikacija do kompleksnih poslovnih sistema</p>
+                </div>
+                
+                <div class="service-card" id="service6">
+                    <div class="service-icon">
+                        <i class="fas fa-computer"></i>
+                    </div>
+                    <h3>IT savetovanje</h3>
+                    <p>Savetovanje za servis računara i informacionih sistema</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // Modern JavaScript for mobile menu and scroll effects
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('nav');
-    const header = document.getElementById('header');
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontaktirajte nas</h2>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>marinkovicc.aleksa@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Radno vreme</h3>
+                            <p>Ponedeljak - Petak: 08:00 - 14:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    hamburger.addEventListener('click', () => {
-      nav.classList.toggle('active');
-      hamburger.classList.toggle('active');
-    });
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Marin<span>Systems</span></div>
+                    <p>Stvaranje budućnosti kroz profesionalni razvoj.</p>
+                </div>
+            <!--
+                <div>
+                    <h3>Pratite Nas</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            -->
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Marin Systems. Sva prava zadržana.</p>
+            </div>
+        </div>
+    </footer>
 
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        hamburger.classList.remove('active');
-      });
-    });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
 
-    // Fade in animations on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.padding = '';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+        
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-        }
-      });
-    }, observerOptions);
+        const animateOnScroll = () => {
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (cardPosition < screenPosition) {
+                    card.classList.add('animated');
+                }
+            });
+        };
+        
 
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
+        animateOnScroll();
+        
+
+        window.addEventListener('scroll', animateOnScroll);
+        
+
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            alert(`Hvala Vam, ${name}! Vaša poruka je uspešno poslata. Kontaktiraćemo Vas na adresu ${email} u najkraćem roku.`);
+            
+            contactForm.reset();
+        });
+    </script>
 </body>
-
 </html>
