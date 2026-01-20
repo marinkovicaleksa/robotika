@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mihajlo Petrović</title>
+	<link rel="icon" type="image/x-icon" href="MS.png">
+	<meta content="Mihajlo Petrović" property="og:title" />
+	<meta name="author" content="Алекса Маринковић">
+
+	<meta content="https://marinkovicaleksa.github.io/robotika/MS090220MP.html" property="og:url" />
+    <meta content="https://marinkovicaleksa.github.io/robotika/assets/portraits/mihajlo1.png" property="og:image" />
+
+	<meta content="#0066cc" data-react-helmet="true" name="theme-color" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066cc;        /* Primary blue */
+            --secondary: #004d99;      /* Darker blue */
+            --accent: #00bfff;         /* Bright cyan/blue */
+            --accent-light: #e6f7ff;   /* Light cyan background */
+            --light: #f8fcff;          /* Very light blue tint */
+            --dark: #003366;           /* Dark blue for text */
+            --gray: #4a6572;           /* Blue-gray */
+            --success: #00cc88;        /* Cyan-green for success states */
+            --warning: #ff9900;        /* Orange for warnings */
+            --danger: #ff3366;         /* Red for danger/dismiss */
+            --card-bg: #ffffff;        /* Card background */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        .company-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .company-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-circle {
+            height: 30px;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .logo-text span {
+            color: var(--accent);
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 1rem;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateX(-5px);
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 40px 0 80px;
+        }
+        
+        .employee-profile {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 40px;
+        }
+        
+        /* Sidebar Profile Card */
+        .profile-sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .profile-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(0, 191, 255, 0.1);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .employee-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .profile-header h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .employee-position {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .employee-id {
+            background-color: rgba(255, 255, 255, 0.15);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .profile-details {
+            padding: 30px;
+        }
+        
+        .detail-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 102, 204, 0.1);
+            align-items: flex-start;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .detail-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            background: linear-gradient(135deg, var(--accent-light), rgba(0, 191, 255, 0.2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .detail-content h4 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-content p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .access-level {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .access-admin {
+            background-color: rgba(255, 51, 102, 0.1);
+            color: var(--danger);
+        }
+        
+        .access-manager {
+            background-color: rgba(0, 191, 255, 0.1);
+            color: var(--accent);
+        }
+        
+        .access-engineer {
+            background-color: rgba(0, 204, 136, 0.1);
+            color: var(--success);
+        }
+        
+        .access-technician {
+            background-color: rgba(255, 153, 0, 0.1);
+            color: var(--warning);
+        }
+        
+        /* Main Profile Content */
+        .profile-main {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .profile-section {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.1);
+            border: 1px solid rgba(0, 191, 255, 0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 102, 204, 0.1);
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0;
+        }
+        
+        .section-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .biography-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+        
+        .biography-text p {
+            margin-bottom: 20px;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .skill-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--accent-light);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(0, 191, 255, 0.1);
+        }
+        
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .skill-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .skill-level {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+        
+        .skill-level-bar {
+            width: 100px;
+            height: 8px;
+            background-color: rgba(0, 102, 204, 0.1);
+            border-radius: 4px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-level-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            border-radius: 4px;
+        }
+        
+        .skill-level-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        /* Contact Info */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--accent-light);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateX(5px);
+            background-color: rgba(0, 191, 255, 0.1);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .contact-details h4 {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .contact-details p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        .page-footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .footer-logo span {
+            color: var(--accent);
+        }
+        
+        .footer-info {
+            text-align: right;
+        }
+        
+        .footer-info p {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .employee-footer-note {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .employee-profile {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .profile-sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .skills-container,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-info {
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-header {
+                padding: 20px;
+            }
+            
+            .employee-avatar {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .profile-section {
+                padding: 20px;
+            }
+            
+            .contact-item, .skill-item {
+                padding: 15px;
+            }
+            
+            .skill-icon, .contact-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Company Header -->
+    <header class="company-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="company-logo">
+                     <img style="filter: brightness(0) invert(1);" src="MARIN_SYSTEMS.png" height="30px" width="auto" alt="Marin Systems Logo">
+                </a>
+                <a href="index.html#team" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Nazad na glavnu stranicu
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="employee-profile">
+                <!-- Sidebar Profile Card -->
+                <aside class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="https://marinkovicaleksa.github.io/robotika/assets/portraits/mihailo1.png" alt="Mihajlo" class="employee-avatar">
+                            <h1>Mihajlo Petrović</h1>
+                            <div class="employee-position">CAD Engineer</div>
+                            <div class="employee-id">MS090220MP</div>
+                        </div>
+                        
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Odsek</h4>
+                                    <p>CAD inženjerstvo</p>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-user-tag"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Pristup</h4>
+                                    <p>02</p>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Status</h4>
+                                    <p><span class="access-level access-engineer">Aktivan</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Profile Content -->
+                <div class="profile-main">
+                    <!-- Biography Section -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2>Biografija</h2>
+                            <div class="section-icon">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                        </div>
+                        <div class="biography-text">
+                            <p>Mihajlo je lojalan radnik firme sa preko 5 meseci iskustva.</p>
+                            <p>U firmi, Mihajlo izradjuje tehničke nacrte i modele u CAD softveru.</p>
+                        </div>
+                    </section>
+
+                    <!-- Skills Section -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2>Veštine</h2>
+                            <div class="section-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                        </div>
+                        <div class="skills-container">
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="skill-info">
+                                    <h4>Elektronika</h4>
+                                    <div class="skill-level">
+                                        <div class="skill-level-bar">
+                                            <div class="skill-level-fill" style="width: 22%"></div>
+                                        </div>
+                                        <div class="skill-level-text">Osnovno</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <i class="fas fa-computer"></i>
+                                </div>
+                                <div class="skill-info">
+                                    <h4>Računarstvo</h4>
+                                    <div class="skill-level">
+                                        <div class="skill-level-bar">
+                                            <div class="skill-level-fill" style="width: 36%"></div>
+                                        </div>
+                                        <div class="skill-level-text">Osnovno</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <div class="skill-info">
+                                    <h4>Computer Aided Design</h4>
+                                    <div class="skill-level">
+                                        <div class="skill-level-bar">
+                                            <div class="skill-level-fill" style="width: 68%"></div>
+                                        </div>
+                                        <div class="skill-level-text">Napredno</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Information -->
+                    <section class="profile-section">
+                        <div class="section-header">
+                            <h2>Kontakt informacije</h2>
+                            <div class="section-icon">
+                                <i class="fas fa-address-card"></i>
+                            </div>
+                        </div>
+                        <div class="contact-grid">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Email</h4>
+                                    <p>-</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Telefon</h4>
+                                    <p>-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                     <img style="filter: brightness(0) invert(1);" src="MARIN_SYSTEMS.png" height="30px" width="auto" alt="Marin Systems Logo">
+                </div>
+                <div class="footer-info">
+                    <p>Sva prava zadržana.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
